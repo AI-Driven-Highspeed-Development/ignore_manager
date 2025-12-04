@@ -1,5 +1,6 @@
 version: 0.0.1
 folder_path: managers/ignore_manager
 type: manager
-requirements: []
+requirements:
+  - https://github.com/AI-Driven-Highspeed-Development/Logger-Util.git
 repo_url: https://github.com/AI-Driven-Highspeed-Development/ignore_manager.git
