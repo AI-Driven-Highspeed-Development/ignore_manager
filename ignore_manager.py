@@ -164,14 +164,20 @@ class IgnoreManager:
         Returns:
             Tuple of (start_index, end_index) or None if zone not found.
         """
-        start = end = -1
+        start = -1
+        end = -1
+        found_orphaned_end = False
+
         for i, line in enumerate(lines):
             stripped = line.strip()
             if stripped.startswith("# ========== ADHD MANAGED"):
                 start = i
             elif stripped.startswith("# ========== END ADHD MANAGED"):
-                end = i
-                break
+                if start != -1:
+                    end = i
+                    break
+                else:
+                    found_orphaned_end = True
 
         if start >= 0 and end > start:
             return (start, end)
@@ -180,7 +186,7 @@ class IgnoreManager:
         if start >= 0 and end == -1:
             self.logger.warning("Corrupted zone: start marker without end. Will recreate.")
             return None
-        if end >= 0 and start == -1:
+        if found_orphaned_end and start == -1:
             self.logger.warning("Corrupted zone: end marker without start. Will recreate.")
             return None
 
