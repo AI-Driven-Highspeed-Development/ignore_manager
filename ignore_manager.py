@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import os
+import tempfile
 from pathlib import Path
 from typing import Optional
 
@@ -245,4 +247,16 @@ class IgnoreManager:
         content = "\n".join(lines)
         if content and not content.endswith("\n"):
             content += "\n"
-        self.gitignore_path.write_text(content, encoding="utf-8")
+
+        # Atomic write: write to temp file, then rename
+        parent_dir = self.gitignore_path.parent
+        with tempfile.NamedTemporaryFile(
+            mode='w',
+            encoding='utf-8',
+            dir=parent_dir,
+            delete=False
+        ) as tmp:
+            tmp.write(content)
+            tmp_path = tmp.name
+
+        os.replace(tmp_path, self.gitignore_path)
