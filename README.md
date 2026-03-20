@@ -42,7 +42,7 @@ project/data/secrets.*.yaml
 ## Usage
 
 ```python
-from managers.ignore_manager import IgnoreManager
+from ignore_manager import IgnoreManager
 
 # Default: operates on project root .gitignore
 ignore = IgnoreManager()
@@ -80,10 +80,12 @@ custom_ignore = IgnoreManager(gitignore_path="/path/to/.gitignore")
 ## Module Structure
 
 ```
-managers/ignore_manager/
+modules/foundation/ignore_manager/
 ├── __init__.py          # Module exports
-├── init.yaml            # Module metadata
 ├── ignore_manager.py    # IgnoreManager class
+├── .config_template     # Default config schema
+├── pyproject.toml       # Module metadata
+├── refresh.py           # Refresh script
 └── README.md            # This file
 ```
 

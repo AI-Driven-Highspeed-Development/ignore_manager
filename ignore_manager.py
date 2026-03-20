@@ -5,7 +5,7 @@ import tempfile
 from pathlib import Path
 from typing import Optional
 
-from utils.logger_util import Logger
+from logger_util import Logger
 
 
 class IgnoreManager:
@@ -134,11 +134,11 @@ class IgnoreManager:
     # ---------------- Internal helpers ----------------
 
     def _find_project_root(self) -> Path:
-        """Find the project root by looking for init.yaml or .git."""
+        """Find the project root by looking for pyproject.toml or .git."""
         current = Path.cwd()
 
         for parent in [current] + list(current.parents):
-            if (parent / "init.yaml").exists() or (parent / ".git").exists():
+            if (parent / "pyproject.toml").exists() or (parent / ".git").exists():
                 return parent
 
         return current

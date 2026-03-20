@@ -7,12 +7,21 @@ dependencies = [
     "logger-util",
 ]
 
-[tool.adhd]
-type = "manager"
-layer = "runtime"
+[project.urls]
+Repository = "https://github.com/AI-Driven-Highspeed-Development/ignore_manager"
 
-[tool.uv.sources]
-logger-util = { workspace = true }
+[tool.adhd]
+layer = "foundation"
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["."]
+
+[tool.hatch.build]
+dev-mode-dirs = [".."]
+
+[tool.uv.sources]
+logger-util = { workspace = true }
